@@ -16,6 +16,9 @@
 
     if(isset($_GET['logout'])) {
         session_unset();
+        if(isset($_COOKIE['recuerdame'])) {
+            
+        }
         header('Location: login.php');
     }
 ?>
