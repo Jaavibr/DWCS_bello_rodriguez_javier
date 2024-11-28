@@ -17,7 +17,7 @@
     if(isset($_GET['logout'])) {
         session_unset();
         if(isset($_COOKIE['recuerdame'])) {
-            
+            setcookie("recuerdame", $nic, time() - 3600);
         }
         header('Location: login.php');
     }

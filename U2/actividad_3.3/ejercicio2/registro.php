@@ -31,7 +31,6 @@ if (isset($nombre) && isset($ap1) && isset($mail) && isset($nic) && isset($pass)
     }
 
     if (alta_usuario($nombre, $ap1, $ap2, $mail, $nic, $pass, $pass2)) {
-        echo '<h2 style="background-color:green;">Usuario registrado</h2>';
         session_start();
         $_SESSION['nic'] = $nic;
         header('Location: restringido.php');
@@ -63,6 +62,6 @@ if (isset($nombre) && isset($ap1) && isset($mail) && isset($nic) && isset($pass)
         </form>
     </fieldset>
     <a href="login.php">Login</a>
-</body>
+    </body>
 
 </html>

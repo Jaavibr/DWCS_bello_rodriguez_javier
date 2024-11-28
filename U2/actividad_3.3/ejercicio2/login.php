@@ -10,7 +10,7 @@
             session_start();
             $_SESSION['nic'] = $nic;
             if(isset($_POST['recuerdame'])) {
-                setcookie('recuerdame', $nic, time()+3600);
+                setcookie('recuerdame', $nic, time()+2592000);
             }
             header('Location: restringido.php');
         } else {
@@ -31,7 +31,7 @@
     <fieldset>
         <form action="" method="post">
             <label for="nic">Nombre de usuario (nic)</label><br>
-            <input type="text" name="nic"><br>
+            <input type="text" name="nic" value="<?php htmlspecialchars($usuario) ?>"><br>
             <label for="pass">Contraseña</label><br>
             <input type="password" name="pass"><br>
             <input type="checkbox" name="recuerdame">
