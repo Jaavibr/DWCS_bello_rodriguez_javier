@@ -46,7 +46,9 @@
             echo '<td>' . $esc->getHora_cierre() . '</td>';
             echo '<td><img class="list-icon" src="' .IMG_PATH. ($esc->getComedor() ? "comedor-icon.png" : "no-comedor-icon.png") . '"/></td>';
             echo '<td>' . $esc->getMunicipio()->getNombre() . '</td>';
-            echo '<td></td>';
+            echo '<td><a href="#">Modificar</a><br>
+                      <a href="#">Eliminar</a>
+                  </td>';
             echo '</tr>';
         }
         ?>
