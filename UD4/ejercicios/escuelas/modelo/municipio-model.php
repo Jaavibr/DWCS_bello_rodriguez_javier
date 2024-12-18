@@ -138,3 +138,49 @@ class Municipio{
         return $this;
     }
 }
+
+class MunicipioModel {
+    public static function get_municipios() {
+        $db = ConnectionDB::get();
+        $sql = "SELECT * FROM municipio";
+        $statement = $db->prepare($sql);
+        $municipios = [];
+        
+        try {
+            $statement->execute();
+            foreach ($statement as $row) {
+                $municipio = new Municipio($row['cod_municipio'], $row['nombre'], $row['longitud'], $row['latitud'], $row['altitud'], $row['cod_provincia']);
+                $municipios[] = $municipio;
+            }
+        } catch (PDOException $e) {
+            error_log("Error obteniendo municipios: " . $e->getMessage());
+        } finally {
+            $statement = null;
+            $db = null;
+        }
+
+        return $municipios;
+    }
+
+    public static function get_municipio($codigo) {
+        $db = ConnectionDB::get();
+        $sql = "SELECT * FROM municipio WHERE cod_municipio = ?";
+        $statement = $db->prepare($sql);
+        $statement->bindValue(1, $codigo, PDO::PARAM_INT);
+        $municipio = null;
+
+        try {
+            $statement->execute();
+            if ($row = $statement->fetch()) {
+                $municipio = new Municipio($row['cod_municipio'], $row['nombre'], $row['longitud'], $row['latitud'], $row['altitud'], $row['cod_provincia']);
+            }
+        } catch (PDOException $e) {
+            error_log("Error obteniendo municipio: " . $e->getMessage());
+        } finally {
+            $statement = null;
+            $db = null;
+        }
+
+        return $municipio;
+    }
+}

@@ -245,7 +245,28 @@ class EscuelaModel{
     }
 
     public static function alta_escuela($escuela){
+        $db = ConnectionDB::get();
+        $sql = "INSERT INTO escuela (nombre, direccion, hora_apertura, hora_cierre, comedor, cod_municipio) 
+                VALUES (?, ?, ?, ?, ?, ?)";
 
+        $statement = $db->prepare($sql);
+        $statement->bindValue(1, $escuela->getNombre(), PDO::PARAM_STR);
+        $statement->bindValue(2, $escuela->getDireccion(), PDO::PARAM_STR);
+        $statement->bindValue(3, $escuela->getHora_apertura(false)->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $statement->bindValue(4, $escuela->getHora_cierre(false)->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $statement->bindValue(5, $escuela->getComedor() ? 'S' : 'N', PDO::PARAM_STR);
+        $statement->bindValue(6, $escuela->getMunicipio()->getCodigo(), PDO::PARAM_INT);
+
+        try {
+            $statement->execute();
+            header("Location: index.php?action=listar_escuelas"); // Redirigir a la lista de escuelas
+            error_log("Escuela insertada correctamente: " . $escuela->getNombre()); // Verificar que la escuela se insertó correctamente
+        } catch (PDOException $e) {
+            error_log("Error al insertar escuela: " . $e->getMessage()); // Capturar cualquier error en la inserción
+        } finally {
+            $statement = null;
+            $db = null;
+        }
     }
 
     public static function baja_escuela($escuela){

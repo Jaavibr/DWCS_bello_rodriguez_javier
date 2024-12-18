@@ -38,6 +38,7 @@
         <th>Acciones</th>
         </tr>
         <?php
+        echo '<a style="display:flex; justify-content: center;" href="index.php?action=agregar_escuela">Añadir Escuela</a>';
         foreach ($data['escuelas'] as $esc) {
             echo '<tr>';
             echo '<td style="text-align:left;">' . $esc->getNombre() . '</td>';
